@@ -1,4 +1,4 @@
-const { Device, Category, Record } = require('../../models');
+const { device, category, record } = require('../../models');
 const axios = require('axios');
 const apiKey = process.env.API_KEY;
 
@@ -7,9 +7,9 @@ class DataService {
         try {
             let datas = [];
 
-            let devices = await Device.findAll();
+            let devices = await device.findAll();
 
-            let categories = await Category.findAll();
+            let categories = await category.findAll();
 
             for(let device of devices){
                 let pm25 = await axios({
@@ -44,7 +44,7 @@ class DataService {
                 datas.push(data)
             }
 
-            await Record.bulkCreate(datas);
+            await record.bulkCreate(datas);
 
             return datas;
         } catch (error) {
@@ -54,7 +54,7 @@ class DataService {
 
     static async getCategories(){
         try {
-            let categories = await Category.findAll();
+            let categories = await category.findAll();
 
             return categories;
         } catch (error) {

@@ -1,4 +1,4 @@
-const { Record, Device } = require('../../models');
+const { record, device } = require('../../models');
 const fs = require('fs')
 const PDFDocument = require('pdfkit');
 const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
@@ -10,10 +10,10 @@ class ExportService {
                 if(error) return '';
             })
 
-            const records = await Record.findAll({
+            const records = await record.findAll({
                 include: [
                     {
-                        model: Device
+                        model: device
                     }
                 ]
             });
@@ -129,7 +129,7 @@ class ExportService {
 
             doc
                 .fontSize(10)
-                .text(item.Device.name, deviceName, y)
+                .text(item.device.name, deviceName, y)
                 .text(item.lan.toFixed(6), lan, y)
                 .text(item.long.toFixed(6), long, y)
                 .text(item.pm25, pmIndex, y)
